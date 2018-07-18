@@ -1,0 +1,596 @@
+body,
+html {
+	height: 100%;
+	overflow-x: hidden;
+}
+
+#container {
+	margin-bottom: .98rem;
+}
+
+.model-dailog,
+#container-title,
+#choose-specifications,
+#user-comments,
+#wu-comments,
+#img-top-loading,
+#img-detail {
+	background: #fff;
+}
+
+.swiper-container-top {
+	width: 7.50rem;
+	height: 7.50rem;
+	position: relative;
+}
+
+/*.swiper-container-top img {
+	width: 100%;
+	height: 100%;
+}*/
+
+.swiper-container-top .swiper-pagination {
+	position: absolute;
+	top: 330px;
+	height: 30px;
+	text-align: center;
+	padding-right: 30px;
+	color: #5f5f5f;
+}
+
+.goods-more {
+	padding: .2rem .24rem;
+}
+
+.goods-detail {
+	font-size: .26rem;
+	color: #333;
+	font-weight: bold;
+	line-height: .36rem;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+}
+
+.goods-price-yigou {
+	font-size: .26rem;
+	color: #f7565e;
+}
+
+.goods-price-yigou b {
+	font-weight: bold;
+	font-size: .32rem;
+}
+
+.goods-price-yigou span {
+	font-weight: bold;
+}
+
+.goods-price-yigou i {
+	font-size: .24rem;
+}
+
+.goods-price-yigou s {
+	text-decoration: none;
+}
+
+.goods-price-bingdian {
+	font-size: .22rem;
+	color: #999;
+}
+
+.goods-price-bingdian i,
+.goods-price-bingdian b {
+	text-decoration: line-through;
+}
+
+
+/*倒计时~~~~~~~~~~~~~~*/
+
+.goods-detail-count {
+	display: flex;
+	align-items: center;
+}
+
+.goods-price-yigou {
+	display: inline-block;
+	flex: 1;
+}
+
+.time-count {
+	display: inline-block;
+	font-size: .24rem;
+	vertical-align: middle;
+}
+
+.time-count b {
+	color: #F7565E;
+	float: left;
+	margin-right: .14rem;
+}
+
+.time-count span {
+	width: .34rem;
+	height: .38rem;
+	line-height: .38rem;
+	text-align: center;
+	background: #F7565E;
+	color: #fff;
+	border-radius: .12rem;
+	float: left;
+}
+
+.time-count i {
+	display: inline-block;
+	width: .12rem;
+	height: .38rem;
+	line-height: .38rem;
+	color: #F7565E;
+	text-align: center;
+	float: left;
+}
+
+
+/*规格~~~~~~~~~~~~~~~*/
+
+#choose-specifications {
+	height: 1.6rem;
+	margin: .2rem 0;
+	padding: 0 .24rem;
+	box-sizing: border-box;
+}
+
+#choose-specifications li {
+	height: .8rem;
+	line-height: .8rem;
+}
+
+#choose-specifications span {
+	font-size: .26rem;
+	color: #333;
+}
+
+#choose-specifications .choose-hui {
+	font-size: .24rem;
+	color: #999;
+	display: inline-block;
+	width: 2rem;
+}
+
+.choose-guige {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#choose-specifications li img {
+	width: .11rem;
+	height: .2rem;
+}
+
+.scoll-guige {
+	height: 6rem;
+	margin-bottom: .98rem;
+	overflow-y: scroll;
+}
+.choose-guige-show{
+	padding-right: .15rem;
+}
+
+
+/*用户评论~~~~~~~~~~~~~~~*/
+
+.comments-detail {
+	padding: 0 .24rem .14rem;
+}
+
+.comments-title {
+	height: .64rem;
+	line-height: .64rem;
+	margin: 0 .24rem;
+	border-bottom: 1px solid #eee;
+	font-size: .24rem;
+	color: #333;
+}
+
+.comments-title p {
+	float: right;
+}
+
+.comments-title img {
+	width: .11rem;
+	height: .2rem;
+}
+
+.comments-title p {
+	display: flex;
+	align-items: center;
+}
+
+.comments-title .fenshu {
+	color: #F7565E;
+	margin-right: .2rem;
+}
+
+.comments-user {
+	padding: .17rem 0 .11rem;
+}
+
+.comments-user-name {
+	font-size: .22rem;
+	color: #333;
+	float: left;
+}
+
+.comments-user-name img {
+	width: .48rem;
+	height: .48rem;
+	border-radius: 50%;
+	margin-right: .14rem;
+}
+
+.comments-user-name span {
+	vertical-align: middle;
+}
+
+.comments-user .star {
+	float: right;
+	vertical-align: middle;
+}
+
+.comments-user .star .on {
+	background: url(../img/hongstar.png) no-repeat;
+	background-size: 100% 100%;
+}
+
+.comments-user .star .off {
+	background: url(../img/huistar.png) no-repeat;
+	background-size: 100% 100%;
+}
+
+.comments-user .star img {
+	width: .24rem;
+	height: .24rem;
+}
+
+.comments-detail-content {
+	font-size: .24rem;
+	color: #333;
+}
+
+.comments-time {
+	font-size: .22rem;
+	color: #999;
+	margin-top: .24rem;
+	float: right;
+}
+
+
+/*暂无评价~~~~~~~~~~~~~~~~~*/
+
+#wu-comments {
+	height: .64rem;
+	line-height: .64rem;
+	font-size: .24rem;
+	color: #333;
+	padding: 0 .24rem;
+	display: flex;
+	align-items: center;
+}
+
+#wu-comments span {
+	flex: 1;
+}
+
+#wu-comments img {
+	width: .11rem;
+	height: .2rem;
+}
+
+
+/*为你推荐~~~~~~~~~~~~~~~*/
+
+p.text {
+	height: .76rem;
+	line-height: .76rem;
+	background: #F6F8F7;
+	padding: 0 .24rem;
+}
+
+.recommend-detail {
+	display: flex;
+	justify-content: space-around;
+}
+
+.recommend-detail dl {
+	width: 2.48rem;
+}
+
+.detail-img {
+	width: 100%;
+	height: 1.96rem;
+	background: #ccc;
+	padding: .02rem;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+.recommend-detail-name {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.recommend-detail dl img {
+	width: 100%;
+	height: 100%;
+}
+
+.recommend-detail dl dt:nth-child(2) {
+	font-size: .20rem;
+	color: #333;
+	margin-left: .16rem;
+}
+
+.recommend-detail dl dt:nth-child(3) {
+	font-size: .12rem;
+	color: #F7565E;
+	margin-left: .16rem;
+}
+
+
+/*图文详情~~~~~~~~~~~~~~~~~*/
+
+#img-top-loading {
+	height: .8rem;
+	line-height: .8rem;
+	font-size: .24rem;
+	color: #999;
+	text-align: center;
+}
+
+#img-top-loading img {
+	width: .24rem;
+	height: .24rem;
+}
+
+
+/*图文详情~~~~~~~~~~~~~~~*/
+
+#img-detail img {
+	width: 100%;
+}
+
+
+/*立即购买~~~~~~~~~~~~~~·*/
+
+#now-buy {
+	width: 100%;
+	height: .98rem;
+	line-height: .98rem;
+	background: #F7565E;
+	font-size: .34rem;
+	color: #fff;
+	text-align: center;
+	position: fixed;
+	bottom: 0;
+}
+
+
+/*~~~~~~~~~~~~~~`选择规格~~~~~~~~~~~~~~~*/
+
+#container-model {
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, .4);
+	position: fixed;
+	bottom: 0;
+	z-index: 999;
+}
+
+.model-dailog {
+	width: 100%;
+	height: 9.3rem;
+	position: fixed;
+	bottom: 0;
+	padding: 0 .24rem;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	z-index: 9;
+}
+
+.goods-img-div {
+	height: 1.44rem;
+	display: flex;
+}
+
+.img-par {
+	width: 1.88rem;
+	height: 1.88rem;
+	overflow: hidden;
+	position: relative;
+	top: -.48rem;
+}
+
+.goods-img {
+	padding-bottom: .24rem;
+	border-bottom: 1px solid #eee;
+}
+
+.goods-img-div img {
+	width: 1.88rem;
+	height: 1.88rem;
+	border-radius: .12rem;
+}
+
+.goods-img-text {
+	display: inline-block;
+	padding: .42rem 0 0 .4rem;
+}
+
+.goods-choose {
+	font-size: .28rem;
+	color: #333;
+	margin-top: .24rem;
+}
+
+.goods-guige:first-of-type {
+	padding: .2rem 0 0;
+}
+
+.goods-guige:last-of-type {
+	padding-bottom: .1rem;
+	border-bottom: 1px solid #eee;
+}
+
+.goods-guige li {
+	font-size: .22rem;
+	color: #333;
+}
+
+.goods-guige .isChoose {
+	font-size: .26rem;
+	margin-bottom: .14rem;
+}
+
+.goods-guige li span {
+	display: inline-block;
+	padding: .11rem .2rem;
+	background: #eee;
+	border-radius: .12rem;
+	margin-left: .2rem;
+	margin-bottom: .2rem;
+}
+
+.goods-guige li:not(.isChoose) {
+	margin-left: -.2rem;
+	/*margin-bottom: -.06rem;*/
+}
+
+.goods-guige span.active {
+	background: #168cf5;
+	color: #fff;
+}
+
+.goods-guige span.disabled {
+	color: #fff;
+}
+
+.goods-buy-count {
+	padding: .27rem 0 .3rem;
+	display: flex;
+}
+
+.goods-buy-count span {
+	font-size: .26rem;
+	color: #333;
+	flex: 1;
+}
+
+.goods-buy-count p>span,
+.goods-buy-count button {
+	display: inline-block;
+	width: .6rem;
+	height: .58rem;
+	line-height: .58rem;
+	text-align: center;
+	background: #eee;
+}
+
+.goods-buy-count .jian img {
+	width: .22rem;
+	height: .04rem;
+}
+
+.goods-buy-count .jia img {
+	width: .22rem;
+	height: .22rem;
+}
+
+.goods-buy-count p {
+	display: flex;
+}
+
+.goods-buy-count button {
+	border: 0;
+	outline: 0;
+	font-size: .34rem;
+	margin: 0 .02rem;
+}
+
+.sure {
+	width: 100%;
+	height: .98rem;
+	line-height: .98rem;
+	font-size: .34rem;
+	color: #fff;
+	background: #F7565E;
+	text-align: center;
+	position: fixed;
+	bottom: 0;
+	z-index: 9;
+}
+
+.isHide {
+	overflow: hidden;
+}
+
+
+/*弹出框大图的查看 -- 左右滑动box*/
+
+.bigImg-box {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	right: -100%;
+	left: 100%;
+	background: #fff;
+	transition: all .3s;
+	/*使滑动模块上下居中显示*/
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	z-index: 9999;
+}
+
+
+/*显示大图*/
+
+.bigImg-show {
+	right: 0 !important;
+	left: 0 !important;
+}
+
+
+/*这里的高应该图片的高度,图片的高度应该是定高  暂且设为一个定高*/
+
+.swiper-container {
+	width: 100%;
+}
+
+.swiper-container .swiper-slide {
+	width: 7.50rem;
+	!important;
+	height: 7.50rem;
+	!important;
+}
+
+.swiper-slide img {
+	width: 7.50rem;
+	/*height: 7.50rem;*/
+}
+
+
+/*分页器的位置*/
+
+.bigImg-box .swiper-pagination {
+	position: absolute;
+	top: 10%;
+	height: 30px;
+	text-align: center;
+	padding-right: 30px;
+	color: #5f5f5f;
+}

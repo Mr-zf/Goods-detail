@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>商品详情</title>
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="css/ly-goods-detail.css" />
+		<link rel="stylesheet" type="text/css" href="css/swiper.min.css" />
+		<script type="text/javascript">
+			(function(doc, win) {
+				var docEl = doc.documentElement,
+					resizeEvt = 'onorientationchange' in window ? 'onorientationchange' : 'resize',
+					recalc = function() {
+						var clientWidth = docEl.clientWidth;
+						if(!clientWidth) return;
+						if(clientWidth >= 750) {
+							docEl.style.fontSize = '100px';
+						} else {
+							docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
+						}
+					};
+
+				if(!doc.addEventListener) return;
+				win.addEventListener(resizeEvt, recalc, false);
+				doc.addEventListener('DOMContentLoaded', recalc, false);
+			})(document, window);
+		</script>
+	</head>
+
+	<body>
+
+		<div id="container" @touchmove="ontouchmove()">
+			<!--轮播-->
+			<div class="swiper-container-top">
+
+				<div class="swiper-container">
+					<!--滑动为区域  -- 动态加载-->
+					<div class="swiper-wrapper"></div>
+				</div>
+				<!--分页器-->
+				<div class="swiper-pagination"></div>
+
+			</div>
+
+			<!--1.详情-->
+			<div id="container-title">
+
+				<div class="goods-more">
+					<p class="goods-detail">{{goodsDetail.name}}</p>
+					<div class="goods-time-count">
+						<div class="goods-detail-count">
+							<p class="goods-price-yigou" v-if="is11121"><span>冰点价:</span><i>￥</i><b>{{get_guige_slt.minPrice}}</b><s>({{get_guige_slt.minPiecePrice}})</s></p>
+							<p class="goods-price-yigou" v-if="!is11121"><span>易购价:</span><i>￥</i><b>{{get_guige_slt.price}}</b><s>({{get_guige_slt.piecePrice}})</s></p>
+
+							<div class="time-count" v-show="is11121">
+								<b>离结束还剩</b>
+								<span>{{hours}}</span><i>:</i>
+								<span>{{minutes}}</span><i>:</i>
+								<span>{{seconds}}</span>
+							</div>
+						</div>
+
+						<p class="goods-price-bingdian" v-if="is11121"><span>易购价:</span><i>￥</i><b>{{get_guige_slt.price}}</b><s>({{get_guige_slt.piecePrice}})</s></p>
+						<p class="goods-price-bingdian" v-if="!is11121"><span>冰点价:</span><i>￥</i><b>{{get_guige_slt.minPrice}}</b><s>({{get_guige_slt.minPiecePrice}})</s></p>
+					</div>
+
+				</div>
+
+			</div>
+
+			<!--2.选择规格-->
+			<ul id="choose-specifications">
+				<li class="choose-guige" @click="buyNow">
+					<p>
+						<span class="choose-hui">选择规格:</span>
+						<span v-show="!isChooseGuige">请选择规格</span>
+						<span class="choose-guige-show" v-show="isChooseGuige" v-for="item in get_guige_slt.norms">{{item.name}}</span>
+					</p>
+					<img src="img/guige.png" />
+				</li>
+				<li>
+					<span class="choose-hui">预计配送时间:</span>
+					<span>{{goodsDetail.sendTime}}</span>
+				</li>
+			</ul>
+			<!--3.用户评价-->
+			<div id="user-comments" v-show="!goodsDetail.commentNumber == 0">
+				<div class="comments-title">
+					<span>用户评论({{goodsDetail.commentNumber}})</span>
+					<p>
+						<span>评分：</span>
+						<span class="fenshu">{{goodsDetail.commentAvg}}</span>
+						<img src="img/guige.png" />
+					</p>
+				</div>
+				<div class="comments-detail">
+					<div class="comments-user">
+						<div class="comments-user-name">
+							<img :src="userComment.img" />
+							<span>{{userComment.userName}}</span>
+						</div>
+						<p class="star">
+							<img src="img/hongstar.png" v-for="item in itemClasses(userComment.star)" :class="item" />
+
+						</p>
+					</div>
+					<p class="comments-detail-content">{{userComment.content}}</p>
+					<p class="comments-time">{{userComment.createTime}}</p>
+				</div>
+			</div>
+			<!--暂无评价-->
+			<div id="wu-comments" v-show="goodsDetail.commentNumber == 0">
+				<span>暂无评价</span>
+				<img src="img/guige.png" />
+			</div>
+
+			<!--4.为你推荐-->
+			<div id="recommend">
+				<p class="text">为你推荐</p>
+				<div class="recommend-detail">
+					<dl v-for="item in goodsDetail.hotGoods">
+						<dt class="detail-img"><img :src="item.img"/></dt>
+						<dt class="recommend-detail-name">{{item.name}}</dt>
+						<dt>{{item.price | formatMoney}}</dt>
+					</dl>
+				</div>
+			</div>
+			<!--5.图文上拉-->
+			<div id="img-top-loading">
+				<span>上拉查看图文详情</span>
+				<img src="img/topcercle.png" />
+			</div>
+			<!--6.图文详情-->
+			<div id="img-detail" v-show="isShowDetail">
+				<p class="text">图文详情</p>
+				<div>
+					<img :src="get_guige_slt.goodsDetailsImg2" />
+				</div>
+			</div>
+			<!--7.立即购买-->
+			<div id="now-buy">
+				<span>立即购买</span>
+			</div>
+
+			<!--选择规格-->
+			<div id="container-model" v-show="isShowModel" @click="isDialog($event)">
+				<div class="model-dailog">
+					<!--1.图文-->
+					<div class="goods-img">
+						<div class="goods-img-div">
+							<div class="img-par">
+								<img v-for="item,index in get_guige_slt.img" :src="item" alt="{{item}}" @click="bigImgShowHandle" />
+							</div>
+							<div class="goods-img-text">
+
+								<p class="goods-price-yigou" v-if="is11121"><span>冰点价:</span><i>￥</i><b>{{get_guige_slt.minPrice}}</b><s>({{get_guige_slt.minPiecePrice}})</s></p>
+								<p class="goods-price-yigou" v-if="!is11121"><span>易购价:</span><i>￥</i><b>{{get_guige_slt.price}}</b><s>({{get_guige_slt.piecePrice}})</s></p>
+
+								<p class="goods-price-bingdian" v-if="is11121"><span>易购价:</span><i>￥</i><b>{{get_guige_slt.price}}</b><s>({{get_guige_slt.piecePrice}})</s></p>
+								<p class="goods-price-bingdian" v-if="!is11121"><span>冰点价:</span><i>￥</i><b>{{get_guige_slt.minPrice}}</b><s>({{get_guige_slt.minPiecePrice}})</s></p>
+							</div>
+						</div>
+
+						<div class="goods-choose">
+							<span>已选规格：</span>
+							<span v-show="isChooseGuige" v-for="item in get_guige_slt.norms">{{item.name}}&nbsp;&nbsp;</span>
+						</div>
+					</div>
+					<!--2.规格-->
+					<div class="scoll-guige">
+						<ul class="goods-guige" v-for="item,index in fenleiList">
+							<li class="isChoose">{{item[0].groupName}}</li>
+							<li>
+								<span :class="{active:select_fenlei_Id[index] == item_child.id,disabled:!item_child.isSlt}" v-for="item_child,index_child in item[1]" @click="itemClick(index,item_child.id,$event)">{{item_child.name}}</span>
+							</li>
+						</ul>
+						<!--3.数量-->
+						<div class="goods-buy-count">
+							<span>购买数量：</span>
+							<p>
+								<span class="jian" @click="chooseSale('jian')">
+							<img src="img/jian.png"/>
+						</span>
+								<button>{{goodsDetail.minSale}}</button>
+								<span class="jia" @click="chooseSale('jia')">
+							<img src="img/add.png"/>
+						</span>
+							</p>
+						</div>
+					</div>
+
+				</div>
+				<div class="sure" @click="sureBuy">确定</div>
+			</div>
+
+			<!--弹出框大图的查看 -- 左右滑动-->
+			<div class="bigImg-box" @click="isNoImg">
+				<div class="swiper-container">
+					<!--滑动为区域  -- 动态加载-->
+					<div class="swiper-wrapper"></div>
+				</div>
+				<!--分页器-->
+				<div class="swiper-pagination"></div>
+			</div>
+		</div>
+
+	</body>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/swiper.min.js"></script>
+	<script type="text/javascript" src="js/vue.min.js"></script>
+	<script type="text/javascript" src="js/axios.js"></script>
+	<script type="text/javascript" src="js/swiper.min.js"></script>
+	<script type="text/javascript" src="js/goodsDetail.js"></script>
+	<script type="text/javascript">
+		/**
+		 * 这里只实现垂直滚动
+		 */
+		var parent = $('body')[0]
+		var content = $('#container')[0]
+		var startY = 0; // 初始位置
+		var lastY = 0; // 上一次位置
+
+		/**
+		 * 用于缓动的变量
+		 */
+		var lastMoveTime = 0;
+		var lastMoveStart = 0;
+		var stopInertiaMove = false; // 是否停止缓动
+
+		parent.addEventListener('touchstart', function(e) {
+//			console.log(e.touches[0].pageY)
+			lastY = startY = e.touches[0].pageY;
+
+			/**
+			 * 缓动代码
+			 */
+			lastMoveStart = lastY;
+			lastMoveTime = e.timeStamp || Date.now();
+			stopInertiaMove = true;
+		});
+		parent.addEventListener('touchmove', function(e) {
+			
+			var nowY = e.touches[0].pageY;
+			var moveY = nowY - lastY;
+			var contentTop = content.style.top.replace('px', '');
+			// 设置top值移动content
+			content.style.top = (parseInt(contentTop) + moveY) + 'px';
+			lastY = nowY;
+
+			/**
+			 * 缓动代码
+			 */
+			var nowTime = e.timeStamp || Date.now();
+			stopInertiaMove = true;
+			if(nowTime - lastMoveTime > 300) {
+				lastMoveTime = nowTime;
+				lastMoveStart = nowY;
+			}
+		});
+		parent.addEventListener('touchend', function(e) {
+			// do touchend
+			var nowY = e.changedTouches[0].pageY;
+			var moveY = nowY - lastY;
+			var contentTop = content.style.top.replace('px', '');
+			var contentY = (parseInt(contentTop) + moveY);
+			// 设置top值移动content
+			content.style.top = contentY + 'px';
+			lastY = nowY;
+
+			/**
+			 * 缓动代码
+			 */
+			var nowTime = e.timeStamp || Date.now();
+			var v = (nowY - lastMoveStart) / (nowTime - lastMoveTime); //最后一段时间手指划动速度
+			stopInertiaMove = false;
+			(function(v, startTime, contentY) {
+				var dir = v > 0 ? -1 : 1; //加速度方向
+				var deceleration = dir * 0.0006;
+				var duration = v / deceleration; // 速度消减至0所需时间
+				var dist = v * duration / 2; //最终移动多少
+				function inertiaMove() {
+					if(stopInertiaMove) return;
+					var nowTime = e.timeStamp || Date.now();
+					var t = nowTime - startTime;
+					var nowV = v + t * deceleration;
+					// 速度方向变化表示速度达到0了
+					if(dir * nowV < 0) {
+						return;
+					}
+					var moveY = (v + nowV) / 2 * t;
+					content.style.top = (contentY + moveY) + "px";
+					setTimeout(inertiaMove, 10);
+				}
+				inertiaMove();
+			})(v, nowTime, contentY);
+		});
+	</script>
+
+</html>
